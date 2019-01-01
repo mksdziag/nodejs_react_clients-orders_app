@@ -4,8 +4,6 @@ import 'bulma/css/bulma.css';
 import './App.css';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
-import SignUpForm from './components/SignUpForm';
-import LogInForm from './components/LogInForm';
 import EditOrder from './components/orders/EditOrder';
 import OrdersView from './components/orders/OrdersView';
 import OrderView from './components/orders/OrderView';
@@ -30,8 +28,6 @@ class App extends Component {
             <Route path="/clients/edit/:id" component={EditClient} />
             <Route path="/clients/:id" component={ClientView} />
             <Route path="/clients" component={ClientsView} />
-            <Route path="/signup" component={SignUpForm} />
-            <Route path="/login" component={LogInForm} />
             <Route path="/" component={Home} />
           </Switch>
         </div>

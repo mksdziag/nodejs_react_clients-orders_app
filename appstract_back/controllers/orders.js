@@ -1,8 +1,16 @@
-const Client = require('../models/client');
 const Order = require('../models/order');
 
 const getOrders = async (req, res, next) => {
-  const orders = await Order.find();
+  const orders = await Order.find().populate('clientId');
+
+  if (!orders) return res.status(404).send({ message: 'Therae are no orders in the database.' });
+
+  res.send(orders);
+};
+
+const getClientOrders = async (req, res, next) => {
+  const { clientId } = req.params;
+  const orders = await Order.find({ clientId: clientId });
 
   if (!orders) return res.status(404).send({ message: 'Therae are no orders in the database.' });
 
@@ -33,23 +41,9 @@ const createOrder = async (req, res, next) => {
   res.status(201).send(newOrder);
 };
 
-const updateOrder = async (req, res, next) => {
-  const { id } = req.params;
-  const { clientId, amount } = req.body;
-
-  const order = await Order.findByIdAndUpdate(id, { clientId, amount }, { new: true });
-
-  if (!order)
-    return res
-      .status(404)
-      .send({ message: 'Therae are no order with the given id in the database.' });
-
-  res.send(order);
-};
-
 module.exports = {
   getOrders,
   getOrder,
   createOrder,
-  updateOrder,
+  getClientOrders,
 };

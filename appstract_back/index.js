@@ -2,9 +2,11 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
+const cors = require('cors');
 
 const clientRoutes = require('./routes/clients');
 const ordersRoutes = require('./routes/orders');
+const clientsOrdersRoutes = require('./routes/clients-orders');
 
 mongoose.connect(
   'mongodb://localhost/appstract',
@@ -15,9 +17,11 @@ mongoose.connect(
   }
 );
 
+app.use(cors());
 app.use(express.json());
 app.use('/clients', clientRoutes);
 app.use('/orders', ordersRoutes);
+app.use('/clients-orders', clientsOrdersRoutes);
 app.use('/', (req, res, next) =>
   res.status(404).send({ message: 'Bad request. There is nothing here.' })
 );

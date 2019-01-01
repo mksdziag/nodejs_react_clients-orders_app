@@ -32,23 +32,8 @@ const createClient = async (req, res, next) => {
   res.status(201).send(newClient);
 };
 
-const updateClient = async (req, res, next) => {
-  const { id } = req.params;
-  const { name, surname } = req.body;
-
-  const client = await Client.findByIdAndUpdate(id, { name, surname }, { new: true });
-
-  if (!client)
-    return res
-      .status(404)
-      .send({ message: 'Therae are no client with the given id in the database.' });
-
-  res.send(client);
-};
-
 module.exports = {
   getClients,
   getClient,
   createClient,
-  updateClient,
 };

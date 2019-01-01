@@ -1,29 +1,76 @@
 import React, { Fragment } from 'react';
 import SiteHeader from '../SiteHeader';
+import { Link } from 'react-router-dom';
 
 import userPic from '../../circled-user-male-skin-type-1-2.png';
-import TableOrders from '../utils/TableOrders';
+import Table from '../utils/Table';
+import http from '../../services/http';
+import LoadingSpinner from '../LoadingSpinner';
 
-const ClientView = () => {
-  return (
-    <Fragment>
-      <SiteHeader title={'Client'} subtitle="View all details of client" />
-      <div className="columns">
-        <div className="column is-9 ">
-          <div className="title is-size-4">Client's orders</div>
-          <TableOrders />
-        </div>
-        <div className="column is-3">
-          <div className=" title is-size-4	">
-            <span className="mb-1">Kazimierz</span>
-            <br />
-            <span className="mb-1">Wielki</span>
+class ClientView extends React.Component {
+  state = { client: { _id: '', name: '', surname: '' }, orders: [], isLoading: true };
+
+  async componentDidMount() {
+    const { id } = this.props.match.params;
+    const response = await http.get(`/clients-orders/${id}`);
+
+    const orders = response.data;
+    if (!orders.length) {
+      const response = await http.get(`/clients/${id}`);
+      const client = response.data;
+      this.setState({ client, isLoading: false });
+    } else {
+      const client = orders[0].clientDetails;
+      this.setState({ client, orders, isLoading: false });
+    }
+  }
+  render() {
+    console.log(this.state);
+    const { name, surname } = this.state.client;
+    const { orders, isLoading } = this.state;
+    const columns = [
+      {
+        path: '_id',
+        label: 'Order ID',
+      },
+      { path: 'amount', label: 'Order Amount' },
+
+      {
+        label: 'Order link',
+        content: order => (
+          <Link className="button is-warning" to={`/orders/${order.clientId && order._id}`}>
+            view order
+          </Link>
+        ),
+      },
+    ];
+
+    const siteContent = (
+      <Fragment>
+        <SiteHeader title={name + ' ' + surname} subtitle="View all details of client" />
+        <div className="columns">
+          <div className="column is-9 ">
+            <div className="title is-size-4">Client's orders</div>
+            {orders.length ? (
+              <Table columns={columns} data={orders} />
+            ) : (
+              <p>This client does not have any orders yet...</p>
+            )}
           </div>
-          <img src={userPic} alt="" />
+          <div className="column is-3">
+            <div className=" title is-size-4	">
+              <span className="mb-1">{name}</span>
+              <br />
+              <span className="mb-1">{surname}</span>
+            </div>
+            <img src={userPic} alt="" />
+          </div>
         </div>
-      </div>
-    </Fragment>
-  );
-};
+      </Fragment>
+    );
+
+    return <Fragment>{isLoading ? <LoadingSpinner isBig={true} /> : siteContent}</Fragment>;
+  }
+}
 
 export default ClientView;

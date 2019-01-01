@@ -1,37 +1,72 @@
 import React, { Component, Fragment } from 'react';
 import SiteHeader from '../SiteHeader';
+import http from '../../services/http';
 
-class EditOrder extends Component {
-  state = {};
+class EditClient extends Component {
+  state = { name: '', surname: '' };
 
-  componentDidMount() {}
+  handleInputChange = e => {
+    const inputValue = e.currentTarget.value;
+    const inputName = e.currentTarget.name;
+
+    this.setState({ [inputName]: inputValue });
+  };
+
+  handleFormSubmit = async e => {
+    e.preventDefault();
+
+    const newClientData = { ...this.state };
+    const response = await http.post(`/clients`, newClientData);
+    const newClient = response.data;
+    this.props.history.push(`/clients/${newClient._id}`);
+  };
+
+  clearInput = e => {
+    e.preventDefault();
+    this.setState({ name: '', surname: '' });
+  };
 
   render() {
+    const { name, surname } = this.state;
     return (
       <Fragment>
-        <SiteHeader title={'Edit client'} />
+        <SiteHeader title={'Add client'} />
         <div className="columns is-centered">
-          <form className="column is-10" action="">
+          <form className="column is-10" onSubmit={this.handleFormSubmit}>
             <div className="field">
-              <label className="label">Clinet Id</label>
+              <label className="label">Name</label>
               <div className="control">
-                <input className="input" type="text" placeholder="Client id" />
+                <input
+                  className="input"
+                  name="name"
+                  type="text"
+                  value={name}
+                  placeholder="Client's name"
+                  onChange={this.handleInputChange}
+                />
               </div>
             </div>
 
             <div className="field">
               <label className="label">Surname</label>
               <div className="control">
-                <input className="input" type="text" placeholder="Client's second name" />
+                <input
+                  className="input"
+                  type="text"
+                  name="surname"
+                  value={surname}
+                  placeholder="Client's second name"
+                  onChange={this.handleInputChange}
+                />
               </div>
             </div>
 
             <div className="field has-text-right">
               <button className="button is-text " onClick={this.clearInput}>
-                clear fields
+                Clear fields
               </button>
               <button className="button is-dark " type="submit">
-                Log me in
+                Add Client
               </button>
             </div>
           </form>
@@ -41,4 +76,4 @@ class EditOrder extends Component {
   }
 }
 
-export default EditOrder;
+export default EditClient;
