@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import SiteHeader from '../SiteHeader';
 import { Link } from 'react-router-dom';
 
-import userPic from '../../circled-user-male-skin-type-1-2.png';
+import userPic from '../../assets/circled-user-male-skin-type-1-2.png';
 import Table from '../utils/Table';
 import http from '../../services/http';
 import LoadingSpinner from '../LoadingSpinner';
@@ -25,7 +25,6 @@ class ClientView extends React.Component {
     }
   }
   render() {
-    console.log(this.state);
     const { name, surname } = this.state.client;
     const { orders, isLoading } = this.state;
     const columns = [
@@ -33,7 +32,7 @@ class ClientView extends React.Component {
         path: '_id',
         label: 'Order ID',
       },
-      { path: 'amount', label: 'Order Amount' },
+      { content: order => order.amount + ' $', label: 'Order Amount' },
 
       {
         label: 'Order link',
@@ -50,7 +49,7 @@ class ClientView extends React.Component {
         <SiteHeader title={name + ' ' + surname} subtitle="View all details of client" />
         <div className="columns">
           <div className="column is-9 ">
-            <div className="title is-size-4">Client's orders</div>
+            <h3 className="title is-size-4">Client's orders</h3>
             {orders.length ? (
               <Table columns={columns} data={orders} />
             ) : (
@@ -58,12 +57,11 @@ class ClientView extends React.Component {
             )}
           </div>
           <div className="column is-3">
-            <div className=" title is-size-4	">
-              <span className="mb-1">{name}</span>
-              <br />
-              <span className="mb-1">{surname}</span>
-            </div>
-            <img src={userPic} alt="" />
+            <h3 className="title is-size-4">Client details</h3>
+            <span className="mb-1">{name}</span>
+            <br />
+            <span className="mb-1">{surname}</span>
+            <img className="client-picture" src={userPic} alt="" />
           </div>
         </div>
       </Fragment>

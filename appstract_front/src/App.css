@@ -124,3 +124,9 @@
     transform: rotate(360deg);
   }
 }
+
+.client-picture {
+  display: block;
+  margin: 0 auto;
+  max-width: 225px;
+}

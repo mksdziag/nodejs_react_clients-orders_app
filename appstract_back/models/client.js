@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 const Schema = mongoose.Schema;
 
 const clientSchema = new Schema({
@@ -14,6 +15,28 @@ const clientSchema = new Schema({
   },
 });
 
+const validate = client => {
+  const schema = Joi.object().keys({
+    name: Joi.string()
+      .alphanum()
+      .min(3)
+      .max(50)
+      .label('Name')
+      .required(),
+    surname: Joi.string()
+      .alphanum()
+      .min(3)
+      .max(50)
+      .label('Surname')
+      .required(),
+  });
+
+  return Joi.validate(client, schema);
+};
+
 const Client = mongoose.model('Client', clientSchema);
 
-module.exports = Client;
+module.exports = {
+  Client,
+  validate,
+};

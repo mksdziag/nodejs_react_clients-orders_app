@@ -21,7 +21,7 @@ class OrdersView extends React.Component {
         path: '_id',
         label: 'Order ID',
       },
-      { path: 'amount', label: 'Order Amount' },
+      { content: order => order.amount + ' $', label: 'Order Amount' },
       { path: 'clientId.name', label: 'Name' },
       { path: 'clientId.surname', label: 'Surname' },
       {

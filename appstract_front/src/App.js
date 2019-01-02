@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
+
 import 'bulma/css/bulma.css';
 import './App.css';
+
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import EditOrder from './components/orders/EditOrder';
@@ -19,13 +21,11 @@ class App extends Component {
         <NavBar />
         <div className="container container--app">
           <Switch>
-            <Route path="/orders/edit/:id" component={EditOrder} />
             <Route path="/orders/add-new" component={EditOrder} />
             <Route path="/orders/:id" component={OrderView} />
             <Route path="/orders" component={OrdersView} />
             <Route path="/clients-orders" component={AggView} />
             <Route path="/clients/add-new" component={EditClient} />
-            <Route path="/clients/edit/:id" component={EditClient} />
             <Route path="/clients/:id" component={ClientView} />
             <Route path="/clients" component={ClientsView} />
             <Route path="/" component={Home} />

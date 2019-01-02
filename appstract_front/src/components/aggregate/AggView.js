@@ -25,13 +25,13 @@ class AggregateOrders extends React.Component {
         path: '_id',
         label: 'Client ID',
       },
+      { path: 'clientDetails.name', label: 'Name' },
+      { path: 'clientDetails.surname', label: 'Surname' },
       {
         path: 'ordersCount',
         label: 'Orders',
       },
-      { path: 'total', label: 'Total Amount' },
-      { path: 'clientDetails.name', label: 'Name' },
-      { path: 'clientDetails.surname', label: 'Surname' },
+      { content: order => order.total + ' $', label: 'Total Amount' },
       {
         label: 'Profile link',
         content: order => (

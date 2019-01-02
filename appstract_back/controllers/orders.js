@@ -1,4 +1,6 @@
-const Order = require('../models/order');
+const { Order, validate } = require('../models/order');
+const { Client } = require('../models/client');
+const mongoose = require('mongoose');
 
 const getOrders = async (req, res, next) => {
   const orders = await Order.find().populate('clientId');
@@ -31,6 +33,15 @@ const getOrder = async (req, res, next) => {
 
 const createOrder = async (req, res, next) => {
   const { clientId, amount } = req.body;
+
+  const isValidId = mongoose.Types.ObjectId.isValid(clientId);
+  if (!isValidId) return res.status(400).send('Client Id is not valid.');
+
+  const client = await Client.findById(clientId);
+  if (!client) return res.status(400).send('Client Id is not valid.');
+
+  const { error } = validate({ clientId, amount });
+  if (error) return res.status(400).send(error.details[0].message);
 
   const newOrder = new Order({ clientId, amount });
 

@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import SiteHeader from '../SiteHeader';
 import http from '../../services/http';
+import Alert from '../utils/Alert';
 
 class EditOrder extends Component {
-  state = { clientId: '', amount: '' };
+  state = { clientId: '', amount: '', error: '' };
 
   handleInputChange = e => {
     const inputValue = e.currentTarget.value;
@@ -15,25 +16,39 @@ class EditOrder extends Component {
   handleFormSubmit = async e => {
     e.preventDefault();
 
-    const orderDetails = { ...this.state };
-    const response = await http.post(`/orders`, orderDetails);
-    const newOrder = response.data;
-    this.props.history.push(`/orders/${newOrder._id}`);
+    const { clientId, amount } = this.state;
+
+    try {
+      const response = await http.post(`/orders`, { clientId, amount });
+      const newOrder = response.data;
+      this.props.history.push(`/orders/${newOrder._id}`);
+    } catch (error) {
+      const message = error.response.data;
+      if (!message) {
+        console.log(error);
+      }
+      this.setState({ error: message });
+    }
   };
 
   clearInput = e => {
     e.preventDefault();
-    this.setState({ clientId: '', amount: '' });
+    this.setState({ clientId: '', amount: '', error: '' });
+  };
+
+  handleErrorClose = () => {
+    this.setState({ error: '' });
   };
 
   render() {
-    const { clientId, amount } = this.state;
+    const { clientId, amount, error } = this.state;
 
     return (
       <Fragment>
         <SiteHeader title={'Add order'} />
         <div className="columns is-centered">
           <form className="column is-10" action="" onSubmit={this.handleFormSubmit}>
+            {error && <Alert message={error} onClose={this.handleErrorClose} classes="is-danger" />}
             <div className="field">
               <label className="label">Client Id</label>
               <div className="control">

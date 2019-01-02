@@ -39,6 +39,11 @@ class ClientsView extends React.Component {
       <Fragment>
         <SiteHeader title={'Clients from our store'} />
         {isLoading ? <LoadingSpinner isBig={true} /> : <Table columns={columns} data={clients} />}
+        <div className="has-text-right">
+          <Link to="/clients/add-new" className="button is-primary ">
+            Add new client
+          </Link>
+        </div>
       </Fragment>
     );
   }

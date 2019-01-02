@@ -1,4 +1,4 @@
-const Order = require('../models/order');
+const { Order } = require('../models/order');
 const mongoose = require('mongoose');
 
 const getAggregateData = async (req, res, next) => {
@@ -10,6 +10,7 @@ const getAggregateData = async (req, res, next) => {
         ordersCount: { $sum: 1 },
       },
     },
+    { $sort: { total: -1 } },
     {
       $lookup: {
         from: 'clients',
@@ -47,6 +48,7 @@ const getAggregateUserData = async (req, res, next) => {
         as: 'clientDetails',
       },
     },
+    { $sort: { _id: -1 } },
     {
       $unwind: {
         path: '$clientDetails',

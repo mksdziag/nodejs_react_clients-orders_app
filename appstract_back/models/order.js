@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
@@ -9,11 +10,28 @@ const orderSchema = new Schema({
   },
   amount: {
     type: Number,
-    min: 0,
+    min: 0.01,
     required: true,
   },
 });
 
+const validate = order => {
+  const schema = Joi.object().keys({
+    clientId: Joi.string()
+      .min(1)
+      .max(50)
+      .label('ClientId')
+      .required(),
+    amount: Joi.number()
+      .min(0.01)
+      .max(100000000)
+      .label('Amount')
+      .required(),
+  });
+
+  return Joi.validate(order, schema);
+};
+
 const Order = mongoose.model('Order', orderSchema);
 
-module.exports = Order;
+module.exports = { Order, validate };
