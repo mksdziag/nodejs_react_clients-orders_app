@@ -1,6 +1,12 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+
+import LinkTile from './LinkTile';
 import SiteHeader from './SiteHeader';
+import ordersIcon from '../assets/iconmonstr-shopping-cart.svg';
+import addOrderIcon from '../assets/iconmonstr-cart-add.svg';
+import clientsIcon from '../assets/iconmonstr-users.svg';
+import addClientIcon from '../assets/iconmonstr-user-add.svg';
+import aggrIcon from '../assets/iconmonstr-cube.svg';
 
 const Home = () => {
   return (
@@ -10,43 +16,54 @@ const Home = () => {
         <div className="tile is-vertical is-8">
           <div className="tile">
             <div className="tile is-parent is-vertical">
-              <Link to="/orders" className="tile is-child notification is-primary">
-                <p className="title">Orders</p>
-                <p className="subtitle">Check out and manage all orders</p>
-              </Link>
+              <LinkTile
+                classes="is-warning"
+                bgIcon={ordersIcon}
+                linkPath="/orders"
+                title="Orders"
+                subtitle="Manage all orders"
+              />
             </div>
             <div className="tile is-parent">
-              <Link to="orders/add-new" className="tile is-child notification is-danger">
-                <p className="title">Add New Order</p>
-                <p className="subtitle">manage new orders</p>
-                <div className="content" />
-              </Link>
+              <LinkTile
+                classes="is-warning"
+                bgIcon={addOrderIcon}
+                linkPath="/orders/add-new"
+                title="Add New Order"
+                subtitle="Manage new orders"
+              />
             </div>
           </div>
           <div className="tile">
             <div className="tile is-parent is-vertical">
-              <Link to="clients" className="tile is-child notification is-dark">
-                <p className="title">Clients</p>
-                <p className="subtitle">Check out and manage all clients</p>
-              </Link>
+              <LinkTile
+                classes="is-dark"
+                bgIcon={clientsIcon}
+                linkPath="/clients"
+                title="Clients"
+                subtitle="Manage all clients"
+              />
             </div>
             <div className="tile is-parent">
-              <Link to="clients/add-new" className="tile is-child notification is-warning">
-                <p className="title">Add New Client</p>
-                <p className="subtitle">manage new clients</p>
-                <div className="content" />
-              </Link>
+              <LinkTile
+                classes="is-dark"
+                bgIcon={addClientIcon}
+                linkPath="/clients/add-new"
+                title="Add New Client"
+                subtitle="Manage new clients"
+              />
             </div>
           </div>
         </div>
         <div className="tile is-parent">
-          <Link to="clients-orders" className="tile is-child notification is-success">
-            <div className="content">
-              <p className="title">Grouped orders </p>
-              <p className="subtitle">by the client</p>
-              <div className="content" />
-            </div>
-          </Link>
+          <LinkTile
+            classes="is-primary"
+            bgIcon={aggrIcon}
+            linkPath="/clients-orders"
+            title="Grouped orders"
+            subtitle="Aggregate orders data"
+            backgroundSize="auto 30%"
+          />
         </div>
       </div>
     </Fragment>

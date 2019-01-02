@@ -4,21 +4,27 @@ import Table from '../utils/Table';
 import http from '../../services/http';
 import LoadingSpinner from '../LoadingSpinner';
 import { Link } from 'react-router-dom';
+import Alert from '../utils/Alert';
 
 class AggregateOrders extends React.Component {
   state = {
     aggOrders: [],
     isLoading: true,
+    error: '',
   };
 
   async componentDidMount() {
-    const response = await http.get(`/clients-orders`);
-    const aggOrders = response.data;
-
-    this.setState({ aggOrders, isLoading: false });
+    try {
+      const response = await http.get(`/clients-orders`);
+      const aggOrders = response.data;
+      this.setState({ aggOrders, isLoading: false });
+    } catch (error) {
+      const { message } = error.response.data;
+      this.setState({ error: message, isLoading: false });
+    }
   }
   render() {
-    const { isLoading, aggOrders } = this.state;
+    const { isLoading, aggOrders, error } = this.state;
 
     const columns = [
       {
@@ -42,14 +48,13 @@ class AggregateOrders extends React.Component {
       },
     ];
 
+    const aggOrderstable = aggOrders.length ? <Table columns={columns} data={aggOrders} /> : null;
+
     return (
       <Fragment>
         <SiteHeader title={'Clients-Orders Aggregate Table'} />
-        {isLoading ? (
-          <LoadingSpinner isBig={true} />
-        ) : (
-          aggOrders.length && <Table columns={columns} data={aggOrders} />
-        )}
+        {error ? <Alert message={error} classes="is-danger" /> : null}
+        {isLoading ? <LoadingSpinner isBig={true} /> : aggOrderstable}
       </Fragment>
     );
   }

@@ -31,7 +31,7 @@ class EditOrder extends Component {
     }
   };
 
-  clearInput = e => {
+  handleclearInput = e => {
     e.preventDefault();
     this.setState({ clientId: '', amount: '', error: '' });
   };
@@ -79,7 +79,7 @@ class EditOrder extends Component {
             </div>
 
             <div className="field has-text-right">
-              <button className="button is-text " onClick={this.clearInput}>
+              <button className="button is-text " onClick={this.handleclearInput}>
                 Clear fields
               </button>
               <button className="button is-dark " type="submit">

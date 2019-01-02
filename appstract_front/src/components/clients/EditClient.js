@@ -29,7 +29,7 @@ class EditClient extends Component {
     }
   };
 
-  clearInput = e => {
+  handleclearInput = e => {
     e.preventDefault();
     this.setState({ name: '', surname: '', error: '' });
   };
@@ -40,6 +40,7 @@ class EditClient extends Component {
 
   render() {
     const { name, surname, error } = this.state;
+
     return (
       <Fragment>
         <SiteHeader title={'Add client'} />
@@ -75,7 +76,7 @@ class EditClient extends Component {
             </div>
 
             <div className="field has-text-right">
-              <button className="button is-text " onClick={this.clearInput}>
+              <button className="button is-text " onClick={this.handleclearInput}>
                 Clear fields
               </button>
               <button className="button is-dark " type="submit">

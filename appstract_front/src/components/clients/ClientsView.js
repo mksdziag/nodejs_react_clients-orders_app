@@ -4,19 +4,24 @@ import Table from '../utils/Table';
 import SiteHeader from '../SiteHeader';
 import http from '../../services/http';
 import LoadingSpinner from '../LoadingSpinner';
+import Alert from '../utils/Alert';
 
 class ClientsView extends React.Component {
-  state = { clients: [], isLoading: true };
+  state = { clients: [], isLoading: true, error: '' };
 
   async componentDidMount() {
-    const response = await http.get('/clients');
-    const clients = response.data;
-
-    this.setState({ clients, isLoading: false });
+    try {
+      const response = await http.get('/clients');
+      const clients = response.data;
+      this.setState({ clients, isLoading: false });
+    } catch (error) {
+      const { message } = error.response.data;
+      this.setState({ error: message, isLoading: false });
+    }
   }
 
   render() {
-    const { isLoading, clients } = this.state;
+    const { isLoading, clients, error } = this.state;
 
     const columns = [
       {
@@ -35,12 +40,15 @@ class ClientsView extends React.Component {
       },
     ];
 
+    const clientsTable = clients.length ? <Table columns={columns} data={clients} /> : null;
+
     return (
       <Fragment>
         <SiteHeader title={'Clients from our store'} />
-        {isLoading ? <LoadingSpinner isBig={true} /> : <Table columns={columns} data={clients} />}
+        {error ? <Alert message={error} classes="is-danger" /> : null}
+        {isLoading ? <LoadingSpinner isBig={true} /> : clientsTable}
         <div className="has-text-right">
-          <Link to="/clients/add-new" className="button is-primary ">
+          <Link to="/clients/add-new" className="button is-primary mb-3">
             Add new client
           </Link>
         </div>
