@@ -40,7 +40,11 @@ class OrdersView extends React.Component {
       },
     ];
 
-    const ordersTable = orders.length ? <Table columns={columns} data={orders} /> : null;
+    const ordersTable = orders.length ? (
+      <Table columns={columns} data={orders} />
+    ) : (
+      <p className="has-text-centered">There are no orders in your database yet...</p>
+    );
 
     return (
       <Fragment>
