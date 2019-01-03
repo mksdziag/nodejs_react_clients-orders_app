@@ -1,4 +1,4 @@
-const { Client, validate } = require('../models/client');
+const { Client } = require('../models/client');
 
 const getClients = async (req, res, next) => {
   const clients = await Client.find();

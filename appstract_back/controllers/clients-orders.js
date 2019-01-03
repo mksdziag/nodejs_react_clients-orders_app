@@ -1,5 +1,5 @@
-const { Order } = require('../models/order');
 const mongoose = require('mongoose');
+const { Order } = require('../models/order');
 
 const getAggregateData = async (req, res, next) => {
   const aggregatorOpts = [

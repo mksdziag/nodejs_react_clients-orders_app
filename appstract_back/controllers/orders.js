@@ -1,6 +1,6 @@
-const { Order, validate } = require('../models/order');
-const { Client } = require('../models/client');
 const mongoose = require('mongoose');
+const { Order } = require('../models/order');
+const { Client } = require('../models/client');
 
 const getOrders = async (req, res, next) => {
   const orders = await Order.find()
