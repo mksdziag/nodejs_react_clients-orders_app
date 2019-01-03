@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Table from '../utils/Table';
-import SiteHeader from '../SiteHeader';
+import SiteHeader from '../utils/SiteHeader';
 import http from '../../services/http';
 import LoadingSpinner from '../LoadingSpinner';
 import Alert from '../utils/Alert';

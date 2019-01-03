@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import SiteHeader from '../SiteHeader';
+import SiteHeader from '../utils/SiteHeader';
 import http from '../../services/http';
 import Alert from '../utils/Alert';
+import Columns from '../utils/Columns';
+import Column from '../utils/Column';
 
 class EditOrder extends Component {
   state = { clientId: '', amount: '', error: '' };
@@ -46,48 +48,52 @@ class EditOrder extends Component {
     return (
       <Fragment>
         <SiteHeader title={'Add order'} />
-        <div className="columns is-centered">
-          <form className="column is-10" action="" onSubmit={this.handleFormSubmit}>
-            {error && <Alert message={error} onClose={this.handleErrorClose} classes="is-danger" />}
-            <div className="field">
-              <label className="label">Client Id</label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  name="clientId"
-                  onChange={this.handleInputChange}
-                  placeholder="Client id"
-                  value={clientId}
-                />
+        <Columns classes="is-centered">
+          <Column part={8}>
+            <form onSubmit={this.handleFormSubmit}>
+              {error && (
+                <Alert message={error} onClose={this.handleErrorClose} classes="is-danger" />
+              )}
+              <div className="field">
+                <label className="label">Client Id</label>
+                <div className="control">
+                  <input
+                    className="input"
+                    type="text"
+                    name="clientId"
+                    onChange={this.handleInputChange}
+                    placeholder="Client id"
+                    value={clientId}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="field">
-              <label className="label">Amount</label>
-              <div className="control">
-                <input
-                  className="input"
-                  name="amount"
-                  type="number"
-                  step="0.01"
-                  placeholder="Order total amount"
-                  value={amount}
-                  onChange={this.handleInputChange}
-                />
+              <div className="field">
+                <label className="label">Amount</label>
+                <div className="control">
+                  <input
+                    className="input"
+                    name="amount"
+                    type="number"
+                    step="0.01"
+                    placeholder="Order total amount"
+                    value={amount}
+                    onChange={this.handleInputChange}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="field has-text-right">
-              <button className="button is-text " onClick={this.handleclearInput}>
-                Clear fields
-              </button>
-              <button className="button is-dark " type="submit">
-                Add order
-              </button>
-            </div>
-          </form>
-        </div>
+              <div className="field has-text-right">
+                <button className="button is-text " onClick={this.handleclearInput}>
+                  Clear fields
+                </button>
+                <button className="button is-dark " type="submit">
+                  Add order
+                </button>
+              </div>
+            </form>
+          </Column>
+        </Columns>
       </Fragment>
     );
   }

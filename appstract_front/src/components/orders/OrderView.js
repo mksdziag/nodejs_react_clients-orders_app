@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import SiteHeader from '../SiteHeader';
+import SiteHeader from '../utils/SiteHeader';
 import http from '../../services/http';
 import LoadingSpinner from '../LoadingSpinner';
+import Columns from '../utils/Columns';
+import Column from '../utils/Column';
 
 class OrderView extends React.Component {
   state = {
@@ -25,21 +27,26 @@ class OrderView extends React.Component {
 
     const orderDetails = (
       <div>
-        Order id: {id}
-        <br />
-        Order amount: {order.amount && order.amount} $
+        <p>Order id: {id}</p>
+        <p>Order amount: {order.amount && order.amount} $</p>
       </div>
     );
     const buyerDetails = (
-      <div>
-        <span className="mb-1">Name: {order.clientId && order.clientId.name}</span>
-        <br />
-        <span className="mb-1">Surname: {order.clientId && order.clientId.surname}</span>
-        <br />
-        <Link to={`/clients/${order.clientId && order.clientId._id}`} className="button is-warning">
-          View full user profile
-        </Link>
-      </div>
+      <Columns>
+        <Column>
+          <p className="mb-1">Name: {order.clientId && order.clientId.name}</p>
+          <br />
+          <p className="mb-1">Surname: {order.clientId && order.clientId.surname}</p>
+        </Column>
+        <Column>
+          <Link
+            to={`/clients/${order.clientId && order.clientId._id}`}
+            className="button is-warning"
+          >
+            View full user profile
+          </Link>
+        </Column>
+      </Columns>
     );
 
     return (
@@ -55,8 +62,8 @@ class OrderView extends React.Component {
           <div className="column">
             <header className="order-details__header">
               <h2 className="title">Buyer details</h2>
-              {isLoading ? <LoadingSpinner /> : buyerDetails}
             </header>
+            {isLoading ? <LoadingSpinner /> : buyerDetails}
           </div>
         </div>
       </Fragment>

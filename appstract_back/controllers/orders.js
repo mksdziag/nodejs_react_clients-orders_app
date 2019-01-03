@@ -3,7 +3,9 @@ const { Client } = require('../models/client');
 const mongoose = require('mongoose');
 
 const getOrders = async (req, res, next) => {
-  const orders = await Order.find().populate('clientId');
+  const orders = await Order.find()
+    .populate('clientId')
+    .sort('-_id');
 
   if (!orders) return res.status(404).send({ message: 'Therae are no orders in the database.' });
 
@@ -44,7 +46,6 @@ const createOrder = async (req, res, next) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   const newOrder = new Order({ clientId, amount });
-
   await newOrder.save();
 
   if (!newOrder) return res.status(500).send({ message: 'Something went wrong... Try again.' });

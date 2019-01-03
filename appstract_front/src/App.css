@@ -22,6 +22,9 @@
   margin-bottom: 1rem;
 }
 
+.container {
+  padding: 0 .5rem;
+}
 .mb-1 {
   margin-bottom: 0.25rem;
   display: inline-block;

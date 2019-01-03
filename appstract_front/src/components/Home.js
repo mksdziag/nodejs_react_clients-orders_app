@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
-import LinkTile from './LinkTile';
-import SiteHeader from './SiteHeader';
+import LinkTile from './utils/LinkTile';
+import SiteHeader from './utils/SiteHeader';
 import ordersIcon from '../assets/iconmonstr-shopping-cart.svg';
 import addOrderIcon from '../assets/iconmonstr-cart-add.svg';
 import clientsIcon from '../assets/iconmonstr-users.svg';

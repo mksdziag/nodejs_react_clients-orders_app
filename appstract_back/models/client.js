@@ -18,13 +18,11 @@ const clientSchema = new Schema({
 const validate = client => {
   const schema = Joi.object().keys({
     name: Joi.string()
-      .alphanum()
       .min(3)
       .max(50)
       .label('Name')
       .required(),
     surname: Joi.string()
-      .alphanum()
       .min(3)
       .max(50)
       .label('Surname')

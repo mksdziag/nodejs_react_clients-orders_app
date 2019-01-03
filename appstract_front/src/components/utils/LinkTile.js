@@ -6,15 +6,10 @@ const ChildTile = ({ bgIcon, title, subtitle, linkPath, classes, backgroundSize 
     <Link
       to={linkPath}
       className={`tile is-child notification ${classes && classes}`}
-      style={{
-        backgroundImage: `url(${bgIcon})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: backgroundSize,
-        backgroundPosition: 'calc(100% - 1rem) calc(100% - 1rem)',
-      }}
-    >
+      >
       <p className="title">{title}</p>
       <p className="subtitle">{subtitle}</p>
+      <img src={bgIcon} style={{ position: 'absolute', bottom: '1rem', right: '.75rem', width: '100%', maxWidth: '8rem' , maxHeight: '70%'}} alt="" />
     </Link>
   );
 };

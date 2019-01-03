@@ -1,5 +1,4 @@
 const { Client, validate } = require('../models/client');
-const validation = require('../middlewares/validation');
 
 const getClients = async (req, res, next) => {
   const clients = await Client.find();
@@ -28,7 +27,6 @@ const createClient = async (req, res, next) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   const newClient = new Client({ name, surname });
-
   await newClient.save();
 
   if (!newClient) return res.status(500).send({ message: 'Something went wrong... Try again.' });

@@ -1,19 +1,21 @@
 import React, { Fragment } from 'react';
-import SiteHeader from '../SiteHeader';
+import SiteHeader from '../utils/SiteHeader';
 import { Link } from 'react-router-dom';
 
 import userPic from '../../assets/circled-user-male-skin-type-1-2.png';
 import Table from '../utils/Table';
 import http from '../../services/http';
 import LoadingSpinner from '../LoadingSpinner';
+import Columns from '../utils/Columns';
+import Column from '../utils/Column';
 
 class ClientView extends React.Component {
   state = { client: { _id: '', name: '', surname: '' }, orders: [], isLoading: true };
 
   async componentDidMount() {
     const { id } = this.props.match.params;
-    const response = await http.get(`/clients-orders/${id}`);
 
+    const response = await http.get(`/clients-orders/${id}`);
     const orders = response.data;
     if (!orders.length) {
       const response = await http.get(`/clients/${id}`);
@@ -25,8 +27,12 @@ class ClientView extends React.Component {
     }
   }
   render() {
-    const { name, surname } = this.state.client;
-    const { orders, isLoading } = this.state;
+    const {
+      orders,
+      isLoading,
+      client: { name, surname },
+    } = this.state;
+
     const columns = [
       {
         path: '_id',
@@ -46,28 +52,26 @@ class ClientView extends React.Component {
 
     const siteContent = (
       <Fragment>
-        <SiteHeader title={name + ' ' + surname} subtitle="View all details of client" />
-        <div className="columns">
-          <div className="column is-9 ">
+        <SiteHeader title={`${name} ${surname}`} subtitle="View all details of client" />
+        <Columns>
+          <Column part={3}>
+            <h3 className="title is-size-4">Client details</h3>
+            <span className="mb-1">{name}</span> <span className="mb-1">{surname}</span>
+            <img className="client-picture" src={userPic} alt="" />
+          </Column>
+          <Column part={9}>
             <h3 className="title is-size-4">Client's orders</h3>
             {orders.length ? (
               <Table columns={columns} data={orders} />
             ) : (
               <p>This client does not have any orders yet...</p>
             )}
-          </div>
-          <div className="column is-3">
-            <h3 className="title is-size-4">Client details</h3>
-            <span className="mb-1">{name}</span>
-            <br />
-            <span className="mb-1">{surname}</span>
-            <img className="client-picture" src={userPic} alt="" />
-          </div>
-        </div>
+          </Column>
+        </Columns>
       </Fragment>
     );
 
-    return <Fragment>{isLoading ? <LoadingSpinner isBig={true} /> : siteContent}</Fragment>;
+    return isLoading ? <LoadingSpinner isBig={true} /> : siteContent;
   }
 }
 

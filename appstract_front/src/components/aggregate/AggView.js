@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import SiteHeader from '../SiteHeader';
+import SiteHeader from '../utils/SiteHeader';
 import Table from '../utils/Table';
 import http from '../../services/http';
 import LoadingSpinner from '../LoadingSpinner';

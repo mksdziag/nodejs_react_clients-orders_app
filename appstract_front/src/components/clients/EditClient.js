@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import SiteHeader from '../SiteHeader';
+import SiteHeader from '../utils/SiteHeader';
 import http from '../../services/http';
 import Alert from '../utils/Alert';
+import Columns from '../utils/Columns';
+import Column from '../utils/Column';
 
 class EditClient extends Component {
   state = { name: '', surname: '', error: '' };
@@ -34,7 +36,8 @@ class EditClient extends Component {
     this.setState({ name: '', surname: '', error: '' });
   };
 
-  handleErrorClose = () => {
+  handleErrorClose = e => {
+    e.preventDefault();
     this.setState({ error: '' });
   };
 
@@ -44,47 +47,51 @@ class EditClient extends Component {
     return (
       <Fragment>
         <SiteHeader title={'Add client'} />
-        <div className="columns is-centered">
-          <form className="column is-10" onSubmit={this.handleFormSubmit}>
-            {error && <Alert message={error} onClose={this.handleErrorClose} classes="is-danger" />}
-            <div className="field">
-              <label className="label">Name</label>
-              <div className="control">
-                <input
-                  className="input"
-                  name="name"
-                  type="text"
-                  value={name}
-                  placeholder="Client's name"
-                  onChange={this.handleInputChange}
-                />
+        <Columns classes="is-centered">
+          <Column part={8}>
+            <form onSubmit={this.handleFormSubmit}>
+              {error && (
+                <Alert message={error} onClose={this.handleErrorClose} classes="is-danger" />
+              )}
+              <div className="field">
+                <label className="label">Name</label>
+                <div className="control">
+                  <input
+                    className="input"
+                    name="name"
+                    type="text"
+                    value={name}
+                    placeholder="Client's name"
+                    onChange={this.handleInputChange}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="field">
-              <label className="label">Surname</label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  name="surname"
-                  value={surname}
-                  placeholder="Client's second name"
-                  onChange={this.handleInputChange}
-                />
+              <div className="field">
+                <label className="label">Surname</label>
+                <div className="control">
+                  <input
+                    className="input"
+                    type="text"
+                    name="surname"
+                    value={surname}
+                    placeholder="Client's second name"
+                    onChange={this.handleInputChange}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="field has-text-right">
-              <button className="button is-text " onClick={this.handleclearInput}>
-                Clear fields
-              </button>
-              <button className="button is-dark " type="submit">
-                Add Client
-              </button>
-            </div>
-          </form>
-        </div>
+              <div className="field has-text-right">
+                <button className="button is-text " onClick={this.handleclearInput}>
+                  Clear fields
+                </button>
+                <button className="button is-dark " type="submit">
+                  Add Client
+                </button>
+              </div>
+            </form>
+          </Column>
+        </Columns>
       </Fragment>
     );
   }
