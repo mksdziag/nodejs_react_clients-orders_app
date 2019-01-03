@@ -23,9 +23,6 @@ const getClient = async (req, res, next) => {
 const createClient = async (req, res, next) => {
   const { name, surname } = req.body;
 
-  const { error } = validate({ name, surname });
-  if (error) return res.status(400).send(error.details[0].message);
-
   const newClient = new Client({ name, surname });
   await newClient.save();
 

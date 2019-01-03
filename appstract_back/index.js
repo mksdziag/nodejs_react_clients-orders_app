@@ -1,15 +1,17 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-mongoose.set('useFindAndModify', false);
 const cors = require('cors');
+
+const mongoConfig = require('./config/mongo.json');
 
 const clientRoutes = require('./routes/clients');
 const ordersRoutes = require('./routes/orders');
 const clientsOrdersRoutes = require('./routes/clients-orders');
 
+mongoose.set('useFindAndModify', false);
 mongoose.connect(
-  'mongodb://localhost/appstract',
+  mongoConfig.databaseUrl,
   { useNewUrlParser: true },
   err => {
     if (err) return console.log({ message: 'Problem with MongoDB connection...', error: err });

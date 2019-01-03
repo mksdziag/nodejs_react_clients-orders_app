@@ -42,9 +42,6 @@ const createOrder = async (req, res, next) => {
   const client = await Client.findById(clientId);
   if (!client) return res.status(400).send('Client Id is not valid.');
 
-  const { error } = validate({ clientId, amount });
-  if (error) return res.status(400).send(error.details[0].message);
-
   const newOrder = new Order({ clientId, amount });
   await newOrder.save();
 

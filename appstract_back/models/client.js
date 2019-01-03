@@ -16,7 +16,7 @@ const clientSchema = new Schema({
 });
 
 const validate = client => {
-  const schema = Joi.object().keys({
+  const joiSchema = Joi.object().keys({
     name: Joi.string()
       .min(3)
       .max(50)
@@ -29,7 +29,7 @@ const validate = client => {
       .required(),
   });
 
-  return Joi.validate(client, schema);
+  return Joi.validate(client, joiSchema);
 };
 
 const Client = mongoose.model('Client', clientSchema);
