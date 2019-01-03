@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const clientsdata = [
   { name: 'Mariuszek', surname: 'Pudzianowski' },
-  { name: 'kazimierz', surname: 'Kolanko' },
+  { name: 'Kazimierz', surname: 'Kolanko' },
   { name: 'Przemek', surname: 'Rosiński' },
   { name: 'Andrzej', surname: 'Teleska' },
   { name: 'Franciszek', surname: 'Góraj' },
