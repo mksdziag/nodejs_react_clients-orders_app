@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import SiteHeader from '../utils/SiteHeader';
 import http from '../../services/http';
+import { endpoints } from '../../config/restApi.json';
+
+import SiteHeader from '../utils/SiteHeader';
 import LoadingSpinner from '../LoadingSpinner';
 import Columns from '../utils/Columns';
 import Column from '../utils/Column';
-import { endpoints } from '../../config/restApi.json';
 
 class OrderView extends React.Component {
   state = {

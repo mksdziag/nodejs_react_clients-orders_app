@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import SiteHeader from '../utils/SiteHeader';
+
 import http from '../../services/http';
+import { endpoints } from '../../config/restApi.json';
+
+import SiteHeader from '../utils/SiteHeader';
 import Alert from '../utils/Alert';
 import Columns from '../utils/Columns';
 import Column from '../utils/Column';
-import { endpoints } from '../../config/restApi.json';
 
 class EditOrder extends Component {
   state = { clientId: '', amount: '', error: '' };

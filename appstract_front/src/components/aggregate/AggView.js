@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+
+import { endpoints } from '../../config/restApi.json';
+import http from '../../services/http';
+
+import LoadingSpinner from '../LoadingSpinner';
 import SiteHeader from '../utils/SiteHeader';
 import Table from '../utils/Table';
-import http from '../../services/http';
-import LoadingSpinner from '../LoadingSpinner';
-import { Link } from 'react-router-dom';
 import Alert from '../utils/Alert';
-import { endpoints } from '../../config/restApi.json';
 
 class AggregateOrders extends React.Component {
   state = {

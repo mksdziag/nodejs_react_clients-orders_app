@@ -1,14 +1,15 @@
 import React, { Fragment } from 'react';
-import SiteHeader from '../utils/SiteHeader';
 import { Link } from 'react-router-dom';
+
+import http from '../../services/http';
+import { endpoints } from '../../config/restApi.json';
 
 import userPic from '../../assets/circled-user-male-skin-type-1-2.png';
 import Table from '../utils/Table';
-import http from '../../services/http';
+import SiteHeader from '../utils/SiteHeader';
 import LoadingSpinner from '../LoadingSpinner';
 import Columns from '../utils/Columns';
 import Column from '../utils/Column';
-import { endpoints } from '../../config/restApi.json';
 
 class ClientView extends React.Component {
   state = { client: { _id: '', name: '', surname: '' }, orders: [], isLoading: true };

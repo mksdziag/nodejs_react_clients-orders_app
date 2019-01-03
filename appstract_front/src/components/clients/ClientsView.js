@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+
+import { endpoints } from '../../config/restApi.json';
+import http from '../../services/http';
+
 import Table from '../utils/Table';
 import SiteHeader from '../utils/SiteHeader';
-import http from '../../services/http';
 import LoadingSpinner from '../LoadingSpinner';
 import Alert from '../utils/Alert';
-import { endpoints } from '../../config/restApi.json';
 
 class ClientsView extends React.Component {
   state = { clients: [], isLoading: true, error: '' };

@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+
+import http from '../../services/http';
+import { endpoints } from '../../config/restApi.json';
+
 import SiteHeader from '../utils/SiteHeader';
 import LoadingSpinner from '../LoadingSpinner';
-import http from '../../services/http';
-import { Link } from 'react-router-dom';
 import Table from '../utils/Table';
 import Alert from '../utils/Alert';
-import { endpoints } from '../../config/restApi.json';
 
 class OrdersView extends React.Component {
   state = { orders: [], isLoading: true, error: '' };
