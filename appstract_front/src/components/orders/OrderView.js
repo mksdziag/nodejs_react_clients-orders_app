@@ -5,6 +5,7 @@ import http from '../../services/http';
 import LoadingSpinner from '../LoadingSpinner';
 import Columns from '../utils/Columns';
 import Column from '../utils/Column';
+import { endpoints } from '../../config/restApi.json';
 
 class OrderView extends React.Component {
   state = {
@@ -15,7 +16,7 @@ class OrderView extends React.Component {
   async componentDidMount() {
     const { id } = this.props.match.params;
 
-    const response = await http.get(`/orders/${id}`);
+    const response = await http.get(`${endpoints.orders}/${id}`);
     const order = response.data;
 
     this.setState({ order, isLoading: false });

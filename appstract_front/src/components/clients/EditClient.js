@@ -4,6 +4,7 @@ import http from '../../services/http';
 import Alert from '../utils/Alert';
 import Columns from '../utils/Columns';
 import Column from '../utils/Column';
+import { endpoints } from '../../config/restApi.json';
 
 class EditClient extends Component {
   state = { name: '', surname: '', error: '' };
@@ -22,7 +23,7 @@ class EditClient extends Component {
     const newClientData = { name, surname };
 
     try {
-      const response = await http.post(`/clients`, newClientData);
+      const response = await http.post(endpoints.clients, newClientData);
       const newClient = response.data;
       this.props.history.push(`/clients/${newClient._id}`);
     } catch (error) {

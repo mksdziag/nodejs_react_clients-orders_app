@@ -4,6 +4,7 @@ import http from '../../services/http';
 import Alert from '../utils/Alert';
 import Columns from '../utils/Columns';
 import Column from '../utils/Column';
+import { endpoints } from '../../config/restApi.json';
 
 class EditOrder extends Component {
   state = { clientId: '', amount: '', error: '' };
@@ -21,7 +22,7 @@ class EditOrder extends Component {
     const { clientId, amount } = this.state;
 
     try {
-      const response = await http.post(`/orders`, { clientId, amount });
+      const response = await http.post(endpoints.orders, { clientId, amount });
       const newOrder = response.data;
       this.props.history.push(`/orders/${newOrder._id}`);
     } catch (error) {

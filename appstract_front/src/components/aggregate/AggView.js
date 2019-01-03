@@ -5,6 +5,7 @@ import http from '../../services/http';
 import LoadingSpinner from '../LoadingSpinner';
 import { Link } from 'react-router-dom';
 import Alert from '../utils/Alert';
+import { endpoints } from '../../config/restApi.json';
 
 class AggregateOrders extends React.Component {
   state = {
@@ -15,7 +16,7 @@ class AggregateOrders extends React.Component {
 
   async componentDidMount() {
     try {
-      const response = await http.get(`/clients-orders`);
+      const response = await http.get(endpoints.clientsOrders);
       const aggOrders = response.data;
       this.setState({ aggOrders, isLoading: false });
     } catch (error) {

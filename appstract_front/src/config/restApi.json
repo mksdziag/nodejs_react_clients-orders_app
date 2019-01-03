@@ -1,0 +1,9 @@
+{
+  "baseURL": "http://localhost:3001",
+  "endpoints": {
+    "clients": "/clients",
+    "orders": "/orders",
+    "clientsOrders": "/clients-orders"
+  }
+
+}

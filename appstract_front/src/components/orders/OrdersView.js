@@ -5,13 +5,14 @@ import http from '../../services/http';
 import { Link } from 'react-router-dom';
 import Table from '../utils/Table';
 import Alert from '../utils/Alert';
+import { endpoints } from '../../config/restApi.json';
 
 class OrdersView extends React.Component {
   state = { orders: [], isLoading: true, error: '' };
 
   async componentDidMount() {
     try {
-      const response = await http.get('/orders');
+      const response = await http.get(endpoints.orders);
       const orders = response.data;
       this.setState({ orders, isLoading: false });
     } catch (error) {

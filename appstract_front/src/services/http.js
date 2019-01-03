@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { baseURL } from '../config/restApi.json';
 
-axios.defaults.baseURL = 'http://localhost:3001';
+axios.defaults.baseURL = baseURL;
 
 export default {
   get: axios.get,

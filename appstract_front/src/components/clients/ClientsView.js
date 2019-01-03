@@ -5,13 +5,14 @@ import SiteHeader from '../utils/SiteHeader';
 import http from '../../services/http';
 import LoadingSpinner from '../LoadingSpinner';
 import Alert from '../utils/Alert';
+import { endpoints } from '../../config/restApi.json';
 
 class ClientsView extends React.Component {
   state = { clients: [], isLoading: true, error: '' };
 
   async componentDidMount() {
     try {
-      const response = await http.get('/clients');
+      const response = await http.get(endpoints.clients);
       const clients = response.data;
       this.setState({ clients, isLoading: false });
     } catch (error) {

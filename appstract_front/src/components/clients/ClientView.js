@@ -8,6 +8,7 @@ import http from '../../services/http';
 import LoadingSpinner from '../LoadingSpinner';
 import Columns from '../utils/Columns';
 import Column from '../utils/Column';
+import { endpoints } from '../../config/restApi.json';
 
 class ClientView extends React.Component {
   state = { client: { _id: '', name: '', surname: '' }, orders: [], isLoading: true };
@@ -15,10 +16,10 @@ class ClientView extends React.Component {
   async componentDidMount() {
     const { id } = this.props.match.params;
 
-    const response = await http.get(`/clients-orders/${id}`);
+    const response = await http.get(`${endpoints.clientsOrders}/${id}`);
     const orders = response.data;
     if (!orders.length) {
-      const response = await http.get(`/clients/${id}`);
+      const response = await http.get(`${endpoints.clients}/${id}`);
       const client = response.data;
       this.setState({ client, isLoading: false });
     } else {
